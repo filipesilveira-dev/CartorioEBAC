@@ -131,7 +131,8 @@ int main () // sempre é a primeira função a ser executada pelo sistema. Mesmo se
 		printf ("Escolha a opção desejada do menu:\n\n");
 		printf ("\t1- Registrar Nomes\n");
 		printf ("\t2- Consultar Nomes\n");
-		printf ("\t3- Deletar Nomes\n\n"); 
+		printf ("\t3- Deletar Nomes\n"); 
+		printf ("\t4- Sair do sistema\n\n");
 		printf ("Opção: "); // final do menu
 	
 		scanf ("%d", &opcao); // funçaõ de escanear o que o usuário coloca. com o %d ele vai escanear o que o usuário vai responder antes para o resultado de referenciado na variável "opção" ("Armazene na vaiável opção - estabelecida na linha 7. No início do int main - o valor que o usuário digitar"). O scanf "pausa" o programa enquanto não obtém uma resposta
@@ -151,6 +152,11 @@ int main () // sempre é a primeira função a ser executada pelo sistema. Mesmo se
 			
 			case 3:
 			deletar();// chamada de função deletar()
+			break;
+			
+			case 4:
+			printf ("Obrigado por utilizar o sistema!\n");
+			return 0;
 			break;
 			
 			default: // caso seja não seja escolhida nehuma das opções disponíveis, retorne "escolha uma opção válida"
