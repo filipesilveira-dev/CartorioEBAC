@@ -13,6 +13,7 @@ int registro() // essas três funções não são carregadas quando o sistema é abert
 	char nome[40];
 	char sobrenome[40];
 	char cargo[40];
+	int resposta =0;
 	//final da criação de variáveis/strings
 	
 	printf("Digite o CPF a ser cadastrado: ");//coletando informação do usuário
@@ -20,7 +21,7 @@ int registro() // essas três funções não são carregadas quando o sistema é abert
 	
 	strcpy (arquivo, cpf); // pela ordem, o valor está sendo '"puxado" do "cpf" para o "arquivo". Responsável por copiar os valores das strings
 	
-	FILE *file; // cria o arquivo "file". A instrução passada ao sistem é que, dentro das bibliotecas, haverá uma estrutura chamada FILE porque será criado um arquivo (*file)
+	FILE *file; // cria o arquivo "file". A instrução passada ao sistem é que, dentro das bibliotecas, haverá uma estrutura chamada FILE porque será criado um arquivo (*file). o "*" refere que se trata de um ponteiro, ou seja, um ponteiro é uma variável que armazena o endereço de memória de outra variável como seu valor. Uma variável de ponteiro aponta para um tipo de dado (como int) do mesmo tipo e é criada com o *operador. O endereço da variável com a qual você está trabalhando é atribuído ao ponteiro
 	file = fopen(arquivo, "w"); // cria o arquivo "file". Esta linha estabelece que o nome do "file" será "arquivo" e que ele será aberto (fopen) um arquivo novo ("w"), no qual será escrito algo ("w" = write)
 	fprintf (file, "CPF - ");
 	fprintf (file, cpf); // aqui está sendo salvo no arquivo ("file") a variável "cpf". o "fprintf" se refere a realizar a função "printf" dentro do arquivo ("f" colocado antes da função "printif")
@@ -60,6 +61,28 @@ int registro() // essas três funções não são carregadas quando o sistema é abert
 	fclose(file); //os comandos se repetem 4 vezes: uma para cada variável (cpf, nome, sobrenome e cargo)
 	
 	system ("pause");//função para que o sistema aguarde e não já retorne para o menu
+	
+	system("cls");
+	
+	printf("Deseja cadastrar mais algum nome?\n\n");
+	printf("Tecle 1 para SIM ou 2 para NÃO \n\n");
+	
+	scanf("%d", &resposta);
+	
+	system ("cls");
+	
+	switch (resposta)
+	{
+		case 1:
+		registro();
+		break;
+		
+		case 2:
+		return 0;
+		break;
+	}
+	
+	system("pause");
 }
 
 int consulta()
@@ -68,6 +91,7 @@ int consulta()
 	
 	char cpf[40];
 	char conteudo[200]; // vai ser consultado tudo o que estiver na variável
+	int resposta =0;
 	
 	printf("Digite o CPF a ser consultado: ");
 	scanf ("%s", cpf);
@@ -77,7 +101,7 @@ int consulta()
 	
 	if(file == NULL) // função para caso não encontre o valor de cpf digitado (caso não conste na base de dados). Se "file" retornar um valor "nulo" *NULL", mostre a mensagem (printf)
 	{
-		printf("Não foi possível abrir o arquivo. Arquivo não localizado.\n"); // cada cpf é um novo arquivo
+		printf("\nNão foi possível abrir o arquivo. Arquivo não localizado.\n\n"); // cada cpf é um novo arquivo
 	}
 	
 	while(fgets(conteudo, 200, file) !=NULL) //estão sendo salvos os 200 caracteres do arquivo na variável conteúdo. Quando o valor buscar for nulo, a função se encerra
@@ -87,13 +111,37 @@ int consulta()
 		printf("\n\n"); //enquanto estiver sendo escrito na variável "conteúdo", até "200" valores, os quais estão dentro do "file" (== cpf), retornar o "conteúdo" (%s,conteudo). Até enquanto for diferente de nulo. Quando for igua a nulo [if (file == null], retornar a mensagem que não contém a informação
 	}
 	
+	
 	fclose(file);
+	system("pause");
+	
+	system("cls");
+	
+	printf("Deseja consultar mais algum nome?\n\n");
+	printf("Tecle 1 para SIM ou 2 para NÃO \n\n");
+	
+	scanf("%d", &resposta);
+	
+	system ("cls");
+	
+	switch (resposta)
+	{
+		case 1:
+		consulta();
+		break;
+		
+		case 2:
+		return 0;
+		break;
+	}
+	
 	system("pause");
 }
 
 int deletar()
 {
 	char cpf[40]; // função char para gerenciamento de strings funciona melhor
+	int resposta =0;
 	
 	printf("Digite o CPF do usuário a ser deletado: ");
 	scanf("%s", cpf); // vai olhar o que o usuário colou (resposta à pergunta) e vai registrar na string "cpf"
@@ -113,6 +161,28 @@ int deletar()
 		printf("Usuário deletado com sucesso.\n");
 		system("pause");
 	}
+	
+	system("cls");
+	
+	printf("Deseja deletar mais algum nome?\n\n");
+	printf("Tecle 1 para SIM ou 2 para NÃO \n\n");
+	
+	scanf("%d", &resposta);
+	
+	system ("cls");
+	
+	switch (resposta)
+	{
+		case 1:
+		deletar();
+		break;
+		
+		case 2:
+		return 0;
+		break;
+	}
+	
+	system("pause");
 }
 
 int main () // sempre é a primeira função a ser executada pelo sistema. Mesmo se houver função antes, como "int teste ()"
@@ -155,7 +225,7 @@ int main () // sempre é a primeira função a ser executada pelo sistema. Mesmo se
 			break;
 			
 			case 4:
-			printf ("Obrigado por utilizar o sistema!\n");
+			printf ("Obrigado por utilizar o sistema!\n\n");
 			return 0;
 			break;
 			
