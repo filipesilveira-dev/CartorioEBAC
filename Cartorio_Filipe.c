@@ -23,12 +23,11 @@ int registro() // essas três funções não são carregadas quando o sistema é abert
 	
 	FILE *file; // cria o arquivo "file". A instrução passada ao sistem é que, dentro das bibliotecas, haverá uma estrutura chamada FILE porque será criado um arquivo (*file). o "*" refere que se trata de um ponteiro, ou seja, um ponteiro é uma variável que armazena o endereço de memória de outra variável como seu valor. Uma variável de ponteiro aponta para um tipo de dado (como int) do mesmo tipo e é criada com o *operador. O endereço da variável com a qual você está trabalhando é atribuído ao ponteiro
 	file = fopen(arquivo, "w"); // cria o arquivo "file". Esta linha estabelece que o nome do "file" será "arquivo" e que ele será aberto (fopen) um arquivo novo ("w"), no qual será escrito algo ("w" = write)
-	fprintf (file, "CPF - ");
 	fprintf (file, cpf); // aqui está sendo salvo no arquivo ("file") a variável "cpf". o "fprintf" se refere a realizar a função "printf" dentro do arquivo ("f" colocado antes da função "printif")
 	fclose (file); // fecha o "file" aberto na linha 20. A escolha do arquivo se chamar da mesma forma que do CPF é porque o cpf é único, diferente das outras características
 	
 	file = fopen(arquivo, "a"); // o "a" se refere à "atualização". Não se está criando outro arquivo!!!
-	fprintf(file, ", Nome - "); // essa linha orienta a colocação de uma "," dentro do file
+	fprintf(file, "\t\t"); // essa linha orienta a colocação de uma "," dentro do file
 	fclose (file); // o intuito desse comando é organizar as informações dentro do file por meio de vírgulas
 	
 	printf("Digite o nome a ser cadastrado: "); // mensagem a ser mostrada ao usuário
@@ -39,7 +38,7 @@ int registro() // essas três funções não são carregadas quando o sistema é abert
 	fclose(file); // o intuito de todo esse comando é salvar a informação obtida (informada pelo usuário) no file na parte de "nome")
 	
 	file = fopen(arquivo, "a"); // comando copiado e colado na mudança das instruções do cpf para o nome (agora na mudança do nome para o sobrenome)
-	fprintf(file, ", Sobrenome - "); // essa linha orienta a colocação de uma "," dentro do file
+	fprintf(file, "\t\t"); // essa linha orienta a colocação de uma "," dentro do file
 	fclose (file); // o intuito desse comando é organizar as informações dentro do file por meio de vírgulas (cpf, nome, sobrenome,etc)
 	
 	printf("Digite o sobrenome a ser cadastrado: "); // mensagem a ser mostrada ao usuário
@@ -50,7 +49,7 @@ int registro() // essas três funções não são carregadas quando o sistema é abert
 	fclose(file); // o intuito de todo esse comando é salvar a informação obtida (informada pelo usuário) no file na parte de "sobrenome")
 	
 	file = fopen(arquivo, "a"); // comando copiado e colado na mudança das instruções do cpf para o nome (agora na mudança do nome para o sobrenome)
-	fprintf(file, ", Cargo - "); // essa linha orienta a colocação de uma "," dentro do file
+	fprintf(file, "\t\t"); // essa linha orienta a colocação de uma "," dentro do file
 	fclose (file); // o intuito desse comando é organizar as informações dentro do file por meio de vírgulas (cpf, nome, sobrenome,etc)
 	
 	printf("Digite o cargo a ser cadastrado: "); // mensagem a ser mostrada ao usuário
@@ -106,8 +105,9 @@ int consulta()
 	
 	while(fgets(conteudo, 200, file) !=NULL) //estão sendo salvos os 200 caracteres do arquivo na variável conteúdo. Quando o valor buscar for nulo, a função se encerra
 	{
-		printf("Essas são as informações do usuário: ");
-		printf("%s", conteudo);
+		printf("\nEssas são as informações do usuário: \n\n");
+		printf("||CPF\t\t||NOME\t\t||SOBRENOME\t||CARGO\n");
+		printf("\n%s", conteudo);
 		printf("\n\n"); //enquanto estiver sendo escrito na variável "conteúdo", até "200" valores, os quais estão dentro do "file" (== cpf), retornar o "conteúdo" (%s,conteudo). Até enquanto for diferente de nulo. Quando for igua a nulo [if (file == null], retornar a mensagem que não contém a informação
 	}
 	
