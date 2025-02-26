@@ -135,13 +135,13 @@ int consulta()
 		break;
 	}
 	
-	system("pause");
 }
 
 int deletar()
 {
 	char cpf[40]; // função char para gerenciamento de strings funciona melhor
 	int resposta =0;
+	int confirmacao =0;
 	
 	printf("Digite o CPF do usuário a ser deletado: ");
 	scanf("%s", cpf); // vai olhar o que o usuário colou (resposta à pergunta) e vai registrar na string "cpf"
@@ -157,8 +157,28 @@ int deletar()
 	else
 	{
 		fclose(file);
-		remove(cpf);
-		printf("Usuário deletado com sucesso.\n");
+		
+		printf("\nTem certeza que deseja deletar o CPF %s?\n", cpf);
+        printf("Tecle 1 para SIM ou 2 para NÃO: ");
+        scanf("%d", &confirmacao);
+        
+        if (confirmacao ==1)
+        	{
+        	remove(cpf);
+			system ("cls");
+			printf("Usuário deletado com sucesso.\n\n");
+			}
+		if (confirmacao ==2)
+			{	
+			system ("cls");
+			printf("Operação cancelada com sucesso.\n\n");
+			}
+		else
+			{
+			system ("cls");
+			printf("Tecle 1 para SIM ou 2 para NÃO.\n\n");
+			}	
+		
 		system("pause");
 	}
 	
