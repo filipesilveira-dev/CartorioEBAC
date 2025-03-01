@@ -22,6 +22,37 @@ int registro() // essas três funções não são carregadas quando o sistema é abert
 	strcpy (arquivo, cpf); // pela ordem, o valor está sendo '"puxado" do "cpf" para o "arquivo". Responsável por copiar os valores das strings
 	
 	FILE *file; // cria o arquivo "file". A instrução passada ao sistem é que, dentro das bibliotecas, haverá uma estrutura chamada FILE porque será criado um arquivo (*file). o "*" refere que se trata de um ponteiro, ou seja, um ponteiro é uma variável que armazena o endereço de memória de outra variável como seu valor. Uma variável de ponteiro aponta para um tipo de dado (como int) do mesmo tipo e é criada com o *operador. O endereço da variável com a qual você está trabalhando é atribuído ao ponteiro
+	
+	file=fopen(arquivo, "r");//verificação se o CPF já existe. Por isso o "r"(read). O arquivo será aberto e será lido se já há algo igual já cadastrado
+	if(file != NULL)//Se o arquivo for "diferente de nulo"(!= NULL), ou seja, possui um equivalente dentro dele, retornará "CPF já cadastrado"
+		{
+			printf("\nEsse CPF já está cadastrado\n\n");
+			fclose(file);
+			system("pause");
+			system("cls");
+			
+			printf("Deseja cadastrar outro CPF?\n\n");
+			printf("Tecle 1 para SIM e 2 para NÂO\n\n");
+			scanf("%d",&resposta);//variável declarada depois de "cargo"
+			
+			system("cls");
+			
+			switch(resposta)
+			{
+				case 1://caso a resposta seja de "sim, desejo cadastrar outro CPF", a função "registro()" será chamada, reiniciando o processo de verificar se o cpf já existe
+				registro();
+				break;
+				
+				case 2:
+				return 0;
+				break;
+			}
+			
+			return 0;
+		}
+		
+		//se chegar nessa parte, significa que o CPF não existe e será dada continuidade ao seu registro
+	
 	file = fopen(arquivo, "w"); // cria o arquivo "file". Esta linha estabelece que o nome do "file" será "arquivo" e que ele será aberto (fopen) um arquivo novo ("w"), no qual será escrito algo ("w" = write)
 	fprintf (file, cpf); // aqui está sendo salvo no arquivo ("file") a variável "cpf". o "fprintf" se refere a realizar a função "printf" dentro do arquivo ("f" colocado antes da função "printif")
 	fclose (file); // fecha o "file" aberto na linha 20. A escolha do arquivo se chamar da mesma forma que do CPF é porque o cpf é único, diferente das outras características
@@ -59,6 +90,8 @@ int registro() // essas três funções não são carregadas quando o sistema é abert
 	fprintf(file, cargo);
 	fclose(file); //os comandos se repetem 4 vezes: uma para cada variável (cpf, nome, sobrenome e cargo)
 	
+	printf ("\nCadastro realizado com sucesso.\n\n");
+	
 	system ("pause");//função para que o sistema aguarde e não já retorne para o menu
 	
 	system("cls");
@@ -81,7 +114,7 @@ int registro() // essas três funções não são carregadas quando o sistema é abert
 		break;
 	}
 	
-	system("pause");
+	//system("pause");
 }
 
 int consulta()
@@ -158,26 +191,26 @@ int deletar()
 	{
 		fclose(file);
 		
-		printf("\nTem certeza que deseja deletar o CPF %s?\n", cpf);
+		printf("\nTem certeza que deseja deletar o CPF %s?\n\n", cpf);
         printf("Tecle 1 para SIM ou 2 para NÃO: ");
         scanf("%d", &confirmacao);
         
-        if (confirmacao ==1)
-        	{
-        	remove(cpf);
-			system ("cls");
-			printf("Usuário deletado com sucesso.\n\n");
-			}
-		if (confirmacao ==2)
-			{	
-			system ("cls");
-			printf("Operação cancelada com sucesso.\n\n");
-			}
+       if (confirmacao == 1) //poderia utilizar a função switch também
+		{
+		    remove(cpf);
+		    system("cls");
+		    printf("Usuário deletado com sucesso.\n\n");
+		}
+		else if (confirmacao == 2)
+		{   
+		    system("cls");
+		    printf("Operação cancelada com sucesso.\n\n");
+		}
 		else
-			{
-			system ("cls");
-			printf("Tecle 1 para SIM ou 2 para NÃO.\n\n");
-			}	
+		{
+		    system("cls");
+		    printf("Digite uma opção válida.\n\n");
+		}
 		
 		system("pause");
 	}
@@ -189,7 +222,7 @@ int deletar()
 	
 	scanf("%d", &resposta);
 	
-	system ("cls");
+		system ("cls");
 	
 	switch (resposta)
 	{
@@ -202,60 +235,87 @@ int deletar()
 		break;
 	}
 	
-	system("pause");
+	//system("pause");
 }
 
 int main () // sempre é a primeira função a ser executada pelo sistema. Mesmo se houver função antes, como "int teste ()"
 {
 	int opcao=0; // um espaço na memória do computador se chama "opção". Definido previamente com "0" para não se torna um valor variável de memória. Respnsável por armazenar as variáeis locais: são as que só funiconam dentro da função (int main, no caso)
 	int LacoDeRepeticao=1; // varíavel relacioanda à função for ()
+	char SenhaDigitada []="a";//o "a" foi utilizado apenas pra string não ficar sem nenhum valor
+	int comparacao;
+	int LoginSucesso=0;//estabelecendo a variável com falsa inicialmente (igua a zero)
 	
-	for (LacoDeRepeticao=1;LacoDeRepeticao=1;) // função utilzada para "repetição" ("repita. faça quants vezes eu pedir"). for (Deve ser repetido quando a variável "LacoDeRepeticao" for 1,deve ficar em loop até a variável ser 1); Macete utilizado . O sistema não desliga ao final, e sim retorna ao menu. Ele deve ser colocado após as variáveis e antes do que será repetido (n caso, int main)
+	setlocale (LC_ALL, "Portuguese");
+	
+	while (!LoginSucesso)// o "!" significa a negação de "LoginSucesso". No caso, inicialmente a variável possui valor "falso". Logo, "!LoginSucesso" possui o valor "verdadeiro"
 	{
-	
-		system ("cls");
+		system("cls");
 		
-		setlocale (LC_ALL, "Portuguese"); // definindo a linguagem
-	
-		printf ("### Cartório da EBAC ###\n\n"); // início do menu
-		printf ("Escolha a opção desejada do menu:\n\n");
-		printf ("\t1- Registrar Nomes\n");
-		printf ("\t2- Consultar Nomes\n");
-		printf ("\t3- Deletar Nomes\n"); 
-		printf ("\t4- Sair do sistema\n\n");
-		printf ("Opção: "); // final do menu
-	
-		scanf ("%d", &opcao); // funçaõ de escanear o que o usuário coloca. com o %d ele vai escanear o que o usuário vai responder antes para o resultado de referenciado na variável "opção" ("Armazene na vaiável opção - estabelecida na linha 7. No início do int main - o valor que o usuário digitar"). O scanf "pausa" o programa enquanto não obtém uma resposta
-	
-		system ("cls"); // comando ao sistema para "limpar" a tela , com o intuiro de reduzir a poluição visual para o usuário, após resposta do mesmo
-	
+		printf ("### Cartório da EBAC ###\n\n");
+		printf ("Login de administrador\n\nDigite a sua senha: ");
+		scanf ("%s", SenhaDigitada);
 		
-		switch (opcao)
+		comparacao = strcmp (SenhaDigitada, "admin");//strcmp compara duas variáveis string strcmp (string1, string2)
+		
+		if(comparacao == 0)//continua o processo de comparação iniciado com a strcmp. o "0" indica que as duas são iguais. Se fosse string1>string2, daria 1 e se fosse string1<string2, daria -1.
 		{
-			case 1: // caso a opção seja 1, mostre "você escolheu: registrar nome"
-			registro();// chamada de função registro()
-			break; // encerra a opção 1
+			LoginSucesso =1;//senha correta. Sai do loop de senha. Se o resultado for "0", ou seja, as strings são iguais, então a variável "LoginSucesso" assume o valor verdadeiro, saindo da função "while" que só se repete enquanto for falso
+		}
+		else//dentro do while, quando a senha não estiver correta (qualquer digitação sem ser a senha correta), retornará "Senha inválida"
+		{
+			printf("\nSenha inválida\n\n");
+			system("pause");
+		}
+	}
 			
-			case 2:
-			consulta();// chamada da função consultar()
-			break;
+			for (LacoDeRepeticao=1;LacoDeRepeticao=1;) // função utilzada para "repetição" ("repita. faça quants vezes eu pedir"). for (Deve ser repetido quando a variável "LacoDeRepeticao" for 1,deve ficar em loop até a variável ser 1); Macete utilizado . O sistema não desliga ao final, e sim retorna ao menu. Ele deve ser colocado após as variáveis e antes do que será repetido (n caso, int main)
+			{
 			
-			case 3:
-			deletar();// chamada de função deletar()
-			break;
+				system ("cls");
+				
+				setlocale (LC_ALL, "Portuguese"); // definindo a linguagem
 			
-			case 4:
-			printf ("Obrigado por utilizar o sistema!\n\n");
+				printf ("### Cartório da EBAC ###\n\n"); // início do menu
+				printf ("Escolha a opção desejada do menu:\n\n");
+				printf ("\t1- Registrar Nomes\n");
+				printf ("\t2- Consultar Nomes\n");
+				printf ("\t3- Deletar Nomes\n"); 
+				printf ("\t4- Sair do sistema\n\n");
+				printf ("Opção: "); // final do menu
+			
+				scanf ("%d", &opcao); // funçaõ de escanear o que o usuário coloca. com o %d ele vai escanear o que o usuário vai responder antes para o resultado de referenciado na variável "opção" ("Armazene na vaiável opção - estabelecida na linha 7. No início do int main - o valor que o usuário digitar"). O scanf "pausa" o programa enquanto não obtém uma resposta
+			
+				system ("cls"); // comando ao sistema para "limpar" a tela , com o intuiro de reduzir a poluição visual para o usuário, após resposta do mesmo
+			
+				
+				switch (opcao)
+				{
+					case 1: // caso a opção seja 1, mostre "você escolheu: registrar nome"
+					registro();// chamada de função registro()
+					break; // encerra a opção 1
+					
+					case 2:
+					consulta();// chamada da função consultar()
+					break;
+					
+					case 3:
+					deletar();// chamada de função deletar()
+					break;
+					
+					case 4:
+					printf ("Obrigado por utilizar o sistema!\n\n");
+					return 0;
+					break;
+					
+					default: // caso seja não seja escolhida nehuma das opções disponíveis, retorne "escolha uma opção válida"
+					printf("Escolha uma opção válida\n\n"); 
+					system ("pause");
+					break;			
+				} // final da função switch
+			} // final da função for ()
+			
 			return 0;
-			break;
-			
-			default: // caso seja não seja escolhida nehuma das opções disponíveis, retorne "escolha uma opção válida"
-			printf("Escolha uma opção válida\n\n"); 
-			system ("pause");
-			break;
-						
-		} // final da função switch
-		
-	} // final da função for ()
 }
+
 
