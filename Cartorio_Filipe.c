@@ -245,7 +245,7 @@ int main () // sempre é a primeira função a ser executada pelo sistema. Mesmo se
 	char SenhaDigitada []="a";//o "a" foi utilizado apenas pra string não ficar sem nenhum valor
 	int comparacao;
 	int LoginSucesso=0;//estabelecendo a variável com falsa inicialmente (igua a zero)
-	
+		
 	setlocale (LC_ALL, "Portuguese");
 	
 	while (!LoginSucesso)// o "!" significa a negação de "LoginSucesso". No caso, inicialmente a variável possui valor "falso". Logo, "!LoginSucesso" possui o valor "verdadeiro"
@@ -269,11 +269,11 @@ int main () // sempre é a primeira função a ser executada pelo sistema. Mesmo se
 		}
 	}
 			
-			for (LacoDeRepeticao=1;LacoDeRepeticao=1;) // função utilzada para "repetição" ("repita. faça quants vezes eu pedir"). for (Deve ser repetido quando a variável "LacoDeRepeticao" for 1,deve ficar em loop até a variável ser 1); Macete utilizado . O sistema não desliga ao final, e sim retorna ao menu. Ele deve ser colocado após as variáveis e antes do que será repetido (n caso, int main)
+			for (LacoDeRepeticao=1;LacoDeRepeticao==1;) // função utilzada para "repetição" ("repita. faça quants vezes eu pedir"). for (Deve ser repetido quando a variável "LacoDeRepeticao" for 1,deve ficar em loop até a variável ser 1); Macete utilizado . O sistema não desliga ao final, e sim retorna ao menu. Ele deve ser colocado após as variáveis e antes do que será repetido (n caso, int main)
 			{
 			
 				system ("cls");
-				
+								
 				setlocale (LC_ALL, "Portuguese"); // definindo a linguagem
 			
 				printf ("### Cartório da EBAC ###\n\n"); // início do menu
@@ -284,38 +284,43 @@ int main () // sempre é a primeira função a ser executada pelo sistema. Mesmo se
 				printf ("\t4- Sair do sistema\n\n");
 				printf ("Opção: "); // final do menu
 			
+				fflush(stdin);//limpa resíduos de buffer
+				
 				scanf ("%d", &opcao); // funçaõ de escanear o que o usuário coloca. com o %d ele vai escanear o que o usuário vai responder antes para o resultado de referenciado na variável "opção" ("Armazene na vaiável opção - estabelecida na linha 7. No início do int main - o valor que o usuário digitar"). O scanf "pausa" o programa enquanto não obtém uma resposta
 			
-				system ("cls"); // comando ao sistema para "limpar" a tela , com o intuiro de reduzir a poluição visual para o usuário, após resposta do mesmo
+				//system ("cls"); // comando ao sistema para "limpar" a tela , com o intuiro de reduzir a poluição visual para o usuário, após resposta do mesmo
 			
-				
 				switch (opcao)
 				{
 					case 1: // caso a opção seja 1, mostre "você escolheu: registrar nome"
+					system("cls");
 					registro();// chamada de função registro()
 					break; // encerra a opção 1
 					
 					case 2:
+					system("cls");	
 					consulta();// chamada da função consultar()
 					break;
 					
 					case 3:
+					system("cls");
 					deletar();// chamada de função deletar()
 					break;
 					
 					case 4:
+					system("cls");
 					printf ("Obrigado por utilizar o sistema!\n\n");
 					return 0;
-					break;
-					
+										
 					default: // caso seja não seja escolhida nehuma das opções disponíveis, retorne "escolha uma opção válida"
-					printf("Escolha uma opção válida\n\n"); 
+					printf("\nEscolha uma opção válida\n\n"); 
 					system ("pause");
 					break;			
-				} // final da função switch
+				 } // final da função switch
+				
 			} // final da função for ()
 			
-			return 0;
+			//return 0;
 }
 
 
